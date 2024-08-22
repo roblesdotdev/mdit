@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import 'highlight.js/styles/tokyo-night-dark.css'
 
 export default function Root() {
   return (

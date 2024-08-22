@@ -1,3 +1,4 @@
+@import 'highlight.js/styles/tokyo-night-dark.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,5 +16,11 @@
     margin: 0;
     min-width: 320px;
     overflow: hidden;
+  }
+}
+
+.prose {
+  pre {
+    @apply p-0 ring-2 ring-neutral-400/10;
   }
 }

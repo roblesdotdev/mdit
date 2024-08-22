@@ -1,6 +1,13 @@
+import { useState } from 'react'
+import Markdown from 'react-markdown'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeRaw from 'rehype-raw'
 import { useMediaQuery } from '../utils/hooks'
 
+const demoContent = `# This is a title\n\nLorem ipsum`
+
 export default function Editor() {
+  const [raw, setRaw] = useState(demoContent)
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   if (isMobile) {
@@ -10,32 +17,35 @@ export default function Editor() {
   return (
     <div className="grid w-full flex-1 grid-cols-2 bg-neutral-200/5">
       <div className="h-[calc(100vh-48px)] border-r border-neutral-400/20">
-        <EditorContent />
+        <EditorContent value={raw} handleChange={setRaw} />
       </div>
       <div className="h-[calc(100vh-48px)] overflow-y-auto">
-        <PreviewContent />
+        <PreviewContent raw={raw} />
       </div>
     </div>
   )
 }
 
-const demoContent = `# This is a title\n\nLorem ipsum`
-const previewContent = `<h1>This is a title</h1><p>Lorem ipsum</p>`
-
-function EditorContent() {
+function EditorContent({
+  value,
+  handleChange,
+}: {
+  value: string
+  handleChange: (val: string) => void
+}) {
   return (
     <textarea
       className="h-full w-full resize-none overflow-auto border-0 bg-transparent p-4 outline-none"
-      defaultValue={demoContent}
+      defaultValue={value}
+      onChange={e => handleChange(e.target.value)}
     />
   )
 }
 
-function PreviewContent() {
+function PreviewContent({ raw }: { raw: string }) {
   return (
-    <div
-      className="h-full w-full p-4"
-      dangerouslySetInnerHTML={{ __html: previewContent }}
-    />
+    <div className="prose prose-invert w-full !max-w-none p-4">
+      <Markdown rehypePlugins={[rehypeRaw, rehypeHighlight]}>{raw}</Markdown>
+    </div>
   )
 }
