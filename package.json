@@ -7,7 +7,13 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky",
+    "typecheck": "tsc -b",
+    "prettier": "prettier \"**/*.+(js|jsx|css|ts|tsx|cjs|mjs)\"",
+    "format": "pnpm prettier --list-different",
+    "format:write": "pnpm prettier --write",
+    "validate": "run-p typecheck lint format"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -22,8 +28,15 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "husky": "^9.1.5",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.3",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
-  }
+  },
+  "engines": {
+    "node": ">=20.14.0"
+  },
+  "packageManager": "pnpm@9.7.1"
 }
