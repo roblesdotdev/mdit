@@ -1,12 +1,8 @@
 import localforage from 'localforage'
-import { useEffect, useMemo, useState } from 'react'
-import rehypeExternalLinks from 'rehype-external-links'
-import rehypeStringify from 'rehype-stringify'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import { unified } from 'unified'
+import { useEffect, useState } from 'react'
+import { EditorContent } from '../components/editor'
+import { PreviewContent } from '../components/preview'
 import { useMediaQuery } from '../utils/hooks'
-import { CheckIcon, CopyIcon, ResetIcon } from '../components/icons'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -77,89 +73,5 @@ export default function Editor() {
         <PreviewContent raw={raw} />
       </div>
     </div>
-  )
-}
-
-function EditorContent({
-  value,
-  handleChange,
-  onReset,
-  disabled = false,
-}: {
-  value: string
-  handleChange: (val: string) => void
-  onReset: () => void
-  disabled?: boolean
-}) {
-  const [copied, setCopied] = useState(false)
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(value).then(
-      () => {
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1000)
-      },
-      err => {
-        console.error('Error al copiar: ', err)
-      },
-    )
-  }
-
-  return (
-    <div className="relative h-full">
-      <div className="absolute right-2 top-2 z-10 flex space-x-2">
-        <button
-          disabled={disabled}
-          onClick={onReset}
-          className="inline-flex size-10 items-center justify-center rounded-md bg-black"
-        >
-          <ResetIcon />
-        </button>
-        <button
-          onClick={copyToClipboard}
-          className="inline-flex size-10 items-center justify-center rounded-md bg-black"
-          disabled={value.length === 0}
-        >
-          {copied ? <CheckIcon /> : <CopyIcon />}
-        </button>
-      </div>
-      <textarea
-        spellCheck="false"
-        className="h-full w-full resize-none overflow-auto border-0 bg-transparent p-4 outline-none"
-        value={value}
-        onChange={e => handleChange(e.target.value)}
-      />
-    </div>
-  )
-}
-
-function PreviewContent({ raw }: { raw: string }) {
-  const [html, setHtml] = useState('')
-
-  const processor = useMemo(() => {
-    return unified()
-      .use(remarkParse)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeExternalLinks, {
-        target: '_blank',
-        rel: ['noopener', 'noreferrer'],
-      })
-      .use(rehypeStringify, { allowDangerousHtml: true })
-  }, [])
-
-  useEffect(() => {
-    const processMarkdown = async () => {
-      const result = await processor.process(raw)
-      setHtml(result.toString())
-    }
-
-    processMarkdown()
-  }, [raw, processor])
-
-  return (
-    <div
-      className="prose prose-invert w-full !max-w-none p-4"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
   )
 }
