@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useMediaQuery } from '../utils/hooks'
 import localforage from 'localforage'
-import { unified } from 'unified'
+import { useEffect, useMemo, useState } from 'react'
+import rehypeExternalLinks from 'rehype-external-links'
+import rehypeStringify from 'rehype-stringify'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
-import rehypeStringify from 'rehype-stringify'
-import rehypeSanitize from 'rehype-sanitize'
+import { unified } from 'unified'
+import { useMediaQuery } from '../utils/hooks'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -79,9 +79,12 @@ function PreviewContent({ raw }: { raw: string }) {
   const processor = useMemo(() => {
     return unified()
       .use(remarkParse)
-      .use(remarkRehype)
-      .use(rehypeSanitize)
-      .use(rehypeStringify)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeExternalLinks, {
+        target: '_blank',
+        rel: ['noopener', 'noreferrer'],
+      })
+      .use(rehypeStringify, { allowDangerousHtml: true })
   }, [])
 
   useEffect(() => {
