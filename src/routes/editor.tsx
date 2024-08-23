@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
-import Markdown from 'react-markdown'
+import { useEffect, useMemo, useState } from 'react'
 import { useMediaQuery } from '../utils/hooks'
 import localforage from 'localforage'
-import { PluggableList } from 'unified'
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeStringify from 'rehype-stringify'
+import rehypeSanitize from 'rehype-sanitize'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -71,19 +74,29 @@ function EditorContent({
 }
 
 function PreviewContent({ raw }: { raw: string }) {
-  const [rehypePlugins, setRehypePlugins] = useState<PluggableList>([])
-  useEffect(() => {
-    const loadPlugins = async () => {
-      const { default: rehypeRaw } = await import('rehype-raw')
-      const { default: rehypeHighlight } = await import('rehype-highlight')
-      setRehypePlugins([rehypeRaw, rehypeHighlight] as PluggableList)
-    }
-    loadPlugins()
+  const [html, setHtml] = useState('')
+
+  const processor = useMemo(() => {
+    return unified()
+      .use(remarkParse)
+      .use(remarkRehype)
+      .use(rehypeSanitize)
+      .use(rehypeStringify)
   }, [])
 
+  useEffect(() => {
+    const processMarkdown = async () => {
+      const result = await processor.process(raw)
+      setHtml(result.toString())
+    }
+
+    processMarkdown()
+  }, [raw, processor])
+
   return (
-    <div className="prose prose-invert w-full !max-w-none p-4">
-      <Markdown rehypePlugins={rehypePlugins}>{raw}</Markdown>
-    </div>
+    <div
+      className="prose prose-invert w-full !max-w-none p-4"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   )
 }
