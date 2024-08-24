@@ -1,9 +1,14 @@
+import clsx from 'clsx'
 import localforage from 'localforage'
 import { useEffect, useState } from 'react'
 import { EditorContent } from '../components/editor'
 import { PreviewContent } from '../components/preview'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '../components/resizable'
 import { useMediaQuery } from '../utils/hooks'
-import clsx from 'clsx'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -76,17 +81,23 @@ export default function Editor() {
   }
 
   return (
-    <div className="grid w-full flex-1 grid-cols-2">
-      <EditorContent
-        onReset={reset}
-        value={raw}
-        handleChange={setRaw}
-        disabled={raw === demoContent}
-      />
-      <div className="h-[calc(100vh-48px)] overflow-y-auto">
+    <ResizablePanelGroup direction="horizontal">
+      <ResizablePanel minSize={30}>
+        <EditorContent
+          onReset={reset}
+          value={raw}
+          handleChange={setRaw}
+          disabled={raw === demoContent}
+        />
+      </ResizablePanel>
+      <ResizableHandle />
+      <ResizablePanel
+        className="h-[calc(100vh-48px)] overflow-y-auto"
+        minSize={30}
+      >
         <PreviewContent raw={raw} />
-      </div>
-    </div>
+      </ResizablePanel>
+    </ResizablePanelGroup>
   )
 }
 
