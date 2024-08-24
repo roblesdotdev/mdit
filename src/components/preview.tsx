@@ -29,9 +29,11 @@ export function PreviewContent({ raw }: { raw: string }) {
   }, [raw, processor])
 
   return (
-    <div
-      className="prose prose-invert w-full !max-w-none p-4"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div className="h-[calc(100vh-48px)] overflow-y-auto border-r border-neutral-400/20">
+      <div
+        className="prose prose-invert w-full !max-w-none p-4"
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
   )
 }

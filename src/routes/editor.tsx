@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { EditorContent } from '../components/editor'
 import { PreviewContent } from '../components/preview'
 import { useMediaQuery } from '../utils/hooks'
+import clsx from 'clsx'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -19,6 +20,7 @@ const foo = "FontWithASyntaxHighlighter is awesome!";
 
 export default function Editor() {
   const [raw, setRaw] = useState('')
+  const [tab, setTab] = useState<EditorTabs>('editor')
   const isMobile = useMediaQuery('(max-width: 768px)')
 
   const reset = () => {
@@ -56,22 +58,67 @@ export default function Editor() {
   }, [raw])
 
   if (isMobile) {
-    return <div className="w-full bg-neutral-200/5 p-4">Mobile Editor</div>
+    return (
+      <div className="flex h-full w-full flex-col">
+        <Tabs value={tab} onChange={v => setTab(v)} />
+        {tab === 'editor' ? (
+          <EditorContent
+            onReset={reset}
+            value={raw}
+            handleChange={setRaw}
+            disabled={raw === demoContent}
+          />
+        ) : (
+          <PreviewContent raw={raw} />
+        )}
+      </div>
+    )
   }
 
   return (
     <div className="grid w-full flex-1 grid-cols-2 bg-neutral-200/5">
-      <div className="h-[calc(100vh-48px)] border-r border-neutral-400/20">
-        <EditorContent
-          onReset={reset}
-          value={raw}
-          handleChange={setRaw}
-          disabled={raw === demoContent}
-        />
-      </div>
+      <EditorContent
+        onReset={reset}
+        value={raw}
+        handleChange={setRaw}
+        disabled={raw === demoContent}
+      />
       <div className="h-[calc(100vh-48px)] overflow-y-auto">
         <PreviewContent raw={raw} />
       </div>
+    </div>
+  )
+}
+
+type EditorTabs = 'editor' | 'preview'
+
+function Tabs({
+  value,
+  onChange,
+}: {
+  value: EditorTabs
+  onChange: (val: EditorTabs) => void
+}) {
+  return (
+    <div className="flex justify-center space-x-4 bg-neutral-800 p-2">
+      <button
+        className={clsx(
+          `rounded-md px-4 py-2`,
+          value === 'editor' && 'bg-black',
+        )}
+        onClick={() => onChange('editor')}
+      >
+        Editor
+      </button>
+      <button
+        className={clsx(
+          `rounded-md px-4 py-2`,
+          value === 'preview' && 'bg-black',
+        )}
+        onClick={() => onChange('preview')}
+      >
+        Preview
+      </button>
     </div>
   )
 }
