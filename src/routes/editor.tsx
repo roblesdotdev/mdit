@@ -76,7 +76,7 @@ export default function Editor() {
   }
 
   return (
-    <div className="grid w-full flex-1 grid-cols-2 bg-neutral-200/5">
+    <div className="grid w-full flex-1 grid-cols-2">
       <EditorContent
         onReset={reset}
         value={raw}

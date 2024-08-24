@@ -14,12 +14,32 @@
     font-weight: 400;
 
     color-scheme: dark light;
+
+    --canvas: #1b1a1f;
+    --panel: #20212c;
+    --fg: #ceced1;
+    --fg-muted: #b1b1bb;
+    --border: #242328;
   }
 
   body {
-    margin: 0;
-    min-width: 320px;
-    overflow: hidden;
+    @apply m-0 min-w-[320px] overflow-hidden bg-canvas text-fg;
+  }
+
+  * {
+    @apply border-border outline-none;
+  }
+
+  textarea {
+    @apply text-fg;
+  }
+
+  button {
+    @apply ring-fg-muted ring-offset-2 ring-offset-canvas focus-visible:ring-2;
+  }
+
+  a {
+    @apply ring-fg-muted focus-visible:ring-2;
   }
 }
 
@@ -29,6 +49,15 @@
     font-family: 'FontWithASyntaxHighlighter', monospace;
   }
   pre {
-    @apply p-2 ring-2 ring-neutral-400/10;
+    @apply bg-panel p-2 ring-2 ring-border ring-offset-2 ring-offset-canvas;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-fg;
   }
 }
