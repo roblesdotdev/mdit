@@ -5,9 +5,8 @@ import viteCompression from 'vite-plugin-compression'
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
-    cssMinify: true,
-    minify: true,
-    sourcemap: true,
+    cssMinify: 'lightningcss',
+    minify: 'terser',
   },
   plugins: [react(), viteCompression()],
 })
