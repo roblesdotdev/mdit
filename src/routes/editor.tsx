@@ -100,11 +100,11 @@ function Tabs({
   onChange: (val: EditorTabs) => void
 }) {
   return (
-    <div className="flex justify-center space-x-4 bg-neutral-800 p-2">
+    <div className="flex justify-center space-x-4 border-b p-2">
       <button
         className={clsx(
           `rounded-md px-4 py-2`,
-          value === 'editor' && 'bg-black',
+          value === 'editor' && 'bg-panel',
         )}
         onClick={() => onChange('editor')}
       >
@@ -113,7 +113,7 @@ function Tabs({
       <button
         className={clsx(
           `rounded-md px-4 py-2`,
-          value === 'preview' && 'bg-black',
+          value === 'preview' && 'bg-panel',
         )}
         onClick={() => onChange('preview')}
       >
