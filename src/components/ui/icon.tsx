@@ -1,4 +1,4 @@
-import type { SVGProps } from 'react'
+import type { SVGProps } from 'preact/compat'
 import { cn } from '../../lib/utils'
 import spriteHref from './icons/sprite.svg'
 import { IconName } from './icons/types'

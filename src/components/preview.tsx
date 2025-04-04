@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'preact/hooks'
 import rehypeStringify from 'rehype-stringify'
 import { remark } from 'remark'
 import remarkParse from 'remark-parse'
