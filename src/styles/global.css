@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-canvas: #1b1a1f;
@@ -7,8 +7,9 @@
   --color-fg-muted: #b1b1bb;
   --color-outline: #242328;
 
-  --font-sans: "Inter Variable", Roboto, "Helvetica Neue", "Arial Nova",
-    "Nimbus Sans", Arial, sans-serif;
+  --font-sans:
+    'Inter Variable', Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans',
+    Arial, sans-serif;
 }
 
 :root {
@@ -16,7 +17,7 @@
 }
 
 body {
-  @apply m-0 min-h-screen min-w-[320px] overflow-hidden bg-canvas text-fg;
+  @apply bg-canvas text-fg m-0 min-h-screen min-w-[320px] overflow-hidden;
 }
 
 * {
