@@ -12,7 +12,7 @@ export function Icon({
   name: IconName
 }) {
   return (
-    <svg {...props} className={cn('h-5 w-5 text-current', className)}>
+    <svg {...props} className={cn('size-5 text-current', className)}>
       <title>{title || name}</title>
       <use href={`${spriteHref}#${name}`} />
     </svg>
