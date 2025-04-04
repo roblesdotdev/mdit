@@ -1,6 +1,6 @@
-import localforage from 'localforage'
 import { useEffect, useState } from 'preact/hooks'
 import { EditorContent } from '../components/editor'
+import { PreviewContent } from '../components/preview'
 import Layout from '../layouts/layout'
 
 const STORAGE_KEY = 'markdown-editor-content'
@@ -20,22 +20,18 @@ export function HomePage() {
   const [raw, setRaw] = useState<string>('')
 
   useEffect(() => {
-    const loadContent = async () => {
-      const saved = await localforage.getItem<string>(STORAGE_KEY)
-      if (saved) {
-        setRaw(saved)
-      } else {
-        setRaw(demoContent)
-      }
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      setRaw(saved)
+    } else {
+      setRaw(demoContent)
     }
-
-    loadContent()
   }, [])
 
   useEffect(() => {
-    const saveContent = async () => {
+    const saveContent = () => {
       try {
-        await localforage.setItem(STORAGE_KEY, raw)
+        localStorage.setItem(STORAGE_KEY, raw)
       } catch (error) {
         // biome-ignore lint/suspicious/noConsole: Log failure
         console.error('Fail to save', error)
@@ -56,12 +52,15 @@ export function HomePage() {
 
   return (
     <Layout title="Markdown Previewer" description="Markdown live edit.">
-      <EditorContent
-        onReset={reset}
-        value={raw}
-        handleChange={setRaw}
-        disabled={raw === demoContent}
-      />
+      <div className="grid grid-cols-2">
+        <EditorContent
+          onReset={reset}
+          value={raw}
+          handleChange={setRaw}
+          disabled={raw === demoContent}
+        />
+        <PreviewContent raw={raw} />
+      </div>
     </Layout>
   )
 }

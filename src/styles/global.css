@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-canvas: #1b1a1f;
@@ -22,4 +23,35 @@ body {
 
 * {
   @apply border-outline outline-none;
+}
+
+textarea {
+  @apply text-fg;
+}
+
+button {
+  @apply ring-fg-muted ring-offset-canvas ring-offset-2 focus-visible:ring-2;
+}
+
+a {
+  @apply ring-fg-muted focus-visible:ring-2;
+}
+
+.prose {
+  code,
+  pre {
+    font-family: 'FontWithASyntaxHighlighter', monospace;
+  }
+  pre {
+    @apply bg-panel ring-outline ring-offset-canvas p-2 ring-2 ring-offset-2;
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-fg;
+  }
 }

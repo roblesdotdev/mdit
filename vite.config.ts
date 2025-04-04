@@ -1,6 +1,7 @@
 import preact from '@preact/preset-vite'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
+import compression from 'vite-plugin-compression'
 import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet'
 
 // https://vite.dev/config/
@@ -10,6 +11,21 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    minify: 'esbuild',
+    cssCodeSplit: true,
+    rollupOptions: {
+      external: [/\node./],
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('remark') || id.includes('rehype')) {
+              return 'markdown'
+            }
+            return 'vendor'
+          }
+        },
+      },
+    },
   },
   plugins: [
     tailwindcss(),
@@ -22,5 +38,6 @@ export default defineConfig({
       formatter: 'prettier',
       iconNameTransformer: name => name.toLocaleLowerCase(),
     }),
+    compression(),
   ],
 })

@@ -15,15 +15,19 @@
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "localforage": "^1.10.0",
     "preact": "^10.26.2",
     "preact-iso": "^2.9.1",
     "react-helmet-async": "^2.0.5",
+    "rehype-stringify": "^10.0.1",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
     "tailwind-merge": "^3.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@preact/preset-vite": "^2.10.1",
+    "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.2",
     "@types/react-helmet": "^6.1.11",
     "lefthook": "^1.11.6",
@@ -32,6 +36,7 @@
     "tailwindcss": "^4.1.2",
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-icons-spritesheet": "^3.0.1"
   }
 }
