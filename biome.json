@@ -28,7 +28,7 @@
       "style": {
         "all": false
       },
-      "nursery": { "recommended": true, "useSortedClasses": "error" }
+      "nursery": { "recommended": true, "useSortedClasses": "off" }
     }
   },
   "overrides": [
