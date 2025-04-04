@@ -10,7 +10,8 @@
     "format": "prettier . --list-different",
     "format:write": "prettier . --write",
     "lint": "biome lint .",
-    "lint:fix": "biome lint . --fix"
+    "lint:fix": "biome lint . --fix",
+    "prepack": "lefthook install"
   },
   "dependencies": {
     "preact": "^10.26.2"
@@ -19,6 +20,7 @@
     "@biomejs/biome": "^1.9.4",
     "@preact/preset-vite": "^2.10.1",
     "@tailwindcss/vite": "^4.1.2",
+    "lefthook": "^1.11.6",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.2",
