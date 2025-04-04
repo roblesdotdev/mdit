@@ -1,7 +1,7 @@
+import type { IconName } from '@/icon-name'
 import type { SVGProps } from 'preact/compat'
 import { cn } from '../../lib/utils'
 import spriteHref from './icons/sprite.svg'
-import { IconName } from './icons/types'
 
 export function Icon({
   name,

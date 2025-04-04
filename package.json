@@ -37,7 +37,8 @@
     "typescript": "~5.7.2",
     "vite": "^6.2.0",
     "vite-plugin-compression": "^0.5.1",
-    "vite-plugin-icons-spritesheet": "^3.0.1"
+    "vite-plugin-icons-spritesheet": "^3.0.1",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "engines": {
     "node": "22"
