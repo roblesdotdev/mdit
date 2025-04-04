@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'preact/hooks'
 import { EditorContent } from '../components/editor'
 import { PreviewContent } from '../components/preview'
+import { EditorTabs, Tabs } from '../components/tabs'
 import Layout from '../layouts/layout'
+import { useMediaQuery } from '../lib/hooks'
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -18,6 +20,8 @@ const foo = "FontWithASyntaxHighlighter is awesome!";
 
 export function HomePage() {
   const [raw, setRaw] = useState<string>('')
+  const [tab, setTab] = useState<EditorTabs>('editor')
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY)
@@ -48,6 +52,24 @@ export function HomePage() {
     )
     if (!userConfirm) return
     setRaw(demoContent)
+  }
+
+  if (isMobile) {
+    return (
+      <div className="flex h-full w-full flex-col">
+        <Tabs value={tab} onChange={v => setTab(v)} />
+        {tab === 'editor' ? (
+          <EditorContent
+            onReset={reset}
+            value={raw}
+            handleChange={setRaw}
+            disabled={raw === demoContent}
+          />
+        ) : (
+          <PreviewContent raw={raw} />
+        )}
+      </div>
+    )
   }
 
   return (
