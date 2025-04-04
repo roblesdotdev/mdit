@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "bradlc.vscode-tailwindcss",
+    "astro-build.astro-vscode",
+    "esbenp.prettier-vscode",
+    "biomejs.biome",
+    "redhat.vscode-yaml"
+  ],
+  "unwantedRecommendations": []
+}
