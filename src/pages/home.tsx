@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'preact/hooks'
 import { EditorContent } from '../components/editor'
-import { PreviewContent } from '../components/preview'
 import { EditorTabs, Tabs } from '../components/tabs'
 import Layout from '../layouts/layout'
 import { useMediaQuery } from '../lib/hooks'
+import { Suspense, lazy } from 'preact/compat'
+
+const PreviewContent = lazy(() =>
+  import('../components/preview.tsx').then(module => {
+    return module
+  }),
+)
 
 const STORAGE_KEY = 'markdown-editor-content'
 
@@ -19,18 +25,12 @@ const foo = "FontWithASyntaxHighlighter is awesome!";
 `
 
 export function HomePage() {
-  const [raw, setRaw] = useState<string>('')
+  const [raw, setRaw] = useState<string>(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return saved || demoContent
+  })
   const [tab, setTab] = useState<EditorTabs>('editor')
   const isMobile = useMediaQuery('(max-width: 768px)')
-
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY)
-    if (saved) {
-      setRaw(saved)
-    } else {
-      setRaw(demoContent)
-    }
-  }, [])
 
   useEffect(() => {
     const saveContent = () => {
@@ -54,9 +54,9 @@ export function HomePage() {
     setRaw(demoContent)
   }
 
-  if (isMobile) {
-    return (
-      <Layout>
+  return (
+    <Layout title="Markdown Previewer" description="Markdown live edit.">
+      {isMobile ? (
         <div className="flex h-full w-full flex-col">
           <Tabs value={tab} onChange={v => setTab(v)} />
           {tab === 'editor' ? (
@@ -67,24 +67,24 @@ export function HomePage() {
               disabled={raw === demoContent}
             />
           ) : (
-            <PreviewContent raw={raw} />
+            <Suspense fallback={<p>Loading...</p>}>
+              <PreviewContent raw={raw} />
+            </Suspense>
           )}
         </div>
-      </Layout>
-    )
-  }
-
-  return (
-    <Layout title="Markdown Previewer" description="Markdown live edit.">
-      <div className="grid grid-cols-2">
-        <EditorContent
-          onReset={reset}
-          value={raw}
-          handleChange={setRaw}
-          disabled={raw === demoContent}
-        />
-        <PreviewContent raw={raw} />
-      </div>
+      ) : (
+        <div className="grid grid-cols-2">
+          <EditorContent
+            onReset={reset}
+            value={raw}
+            handleChange={setRaw}
+            disabled={raw === demoContent}
+          />
+          <Suspense fallback={<p>Loading...</p>}>
+            <PreviewContent raw={raw} />
+          </Suspense>
+        </div>
+      )}
     </Layout>
   )
 }

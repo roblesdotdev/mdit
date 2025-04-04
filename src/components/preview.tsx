@@ -4,7 +4,7 @@ import { remark } from 'remark'
 import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 
-export function PreviewContent({ raw }: { raw: string }) {
+export default function PreviewContent({ raw }: { raw: string }) {
   const [html, setHtml] = useState('')
 
   const processor = useMemo(() => {
