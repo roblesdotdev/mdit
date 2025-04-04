@@ -16,8 +16,10 @@ export default function Layout({
         titleTemplate="Mdit - %s"
         title={title}
         defaultTitle="Markdown Previewer"
-        meta={[{ name: 'description', content: description }]}
-        link={[{ rel: 'canonical', href: 'https://foo.com' }]}
+        meta={[
+          { name: 'description', content: description || 'Mardown live edit.' },
+        ]}
+        link={[{ rel: 'canonical', href: 'https://mdit.pages.dev' }]}
       />
       {children}
     </>

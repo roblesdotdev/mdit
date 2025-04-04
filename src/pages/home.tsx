@@ -56,19 +56,21 @@ export function HomePage() {
 
   if (isMobile) {
     return (
-      <div className="flex h-full w-full flex-col">
-        <Tabs value={tab} onChange={v => setTab(v)} />
-        {tab === 'editor' ? (
-          <EditorContent
-            onReset={reset}
-            value={raw}
-            handleChange={setRaw}
-            disabled={raw === demoContent}
-          />
-        ) : (
-          <PreviewContent raw={raw} />
-        )}
-      </div>
+      <Layout>
+        <div className="flex h-full w-full flex-col">
+          <Tabs value={tab} onChange={v => setTab(v)} />
+          {tab === 'editor' ? (
+            <EditorContent
+              onReset={reset}
+              value={raw}
+              handleChange={setRaw}
+              disabled={raw === demoContent}
+            />
+          ) : (
+            <PreviewContent raw={raw} />
+          )}
+        </div>
+      </Layout>
     )
   }
 

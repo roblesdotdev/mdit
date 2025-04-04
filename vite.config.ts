@@ -1,9 +1,9 @@
 import preact from '@preact/preset-vite'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
-import compression from 'vite-plugin-compression'
 import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import compression from 'vite-plugin-compression'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -42,4 +42,7 @@ export default defineConfig({
     }),
     compression(),
   ],
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
 })

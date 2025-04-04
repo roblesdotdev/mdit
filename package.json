@@ -29,7 +29,6 @@
     "@preact/preset-vite": "^2.10.1",
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.2",
-    "@types/react-helmet": "^6.1.11",
     "lefthook": "^1.11.6",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",

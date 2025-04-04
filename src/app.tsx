@@ -5,8 +5,8 @@ import {
   Router,
   lazy,
 } from 'preact-iso'
-import { HelmetProvider } from 'react-helmet-async'
 import { HomePage } from './pages/home'
+import { HelmetProvider } from 'react-helmet-async'
 
 const NotFound = lazy(() => import('./pages/not-found'))
 
