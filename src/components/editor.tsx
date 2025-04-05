@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks'
 import { Icon } from './ui/icon'
 
-export function EditorContent({
+export default function EditorContent({
   value,
   handleChange,
   onReset,
@@ -16,19 +16,7 @@ export function EditorContent({
 
   const copyToClipboard = async () => {
     try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(value)
-      } else {
-        const textArea = document.createElement('textarea')
-        textArea.value = value
-        textArea.style.position = 'fixed'
-        textArea.style.opacity = '0'
-        document.body.appendChild(textArea)
-        textArea.focus()
-        textArea.select()
-        document.execCommand('copy')
-        document.body.removeChild(textArea)
-      }
+      await navigator.clipboard.writeText(value)
       setCopied(true)
       setTimeout(() => setCopied(false), 1000)
     } catch (err) {
