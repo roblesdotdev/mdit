@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import { iconsSpritesheet } from 'vite-plugin-icons-spritesheet'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import compression from 'vite-plugin-compression'
+import { ViteMinifyPlugin as minify } from 'vite-plugin-minify'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -40,6 +41,7 @@ export default defineConfig({
       formatter: 'prettier',
       iconNameTransformer: name => name.toLocaleLowerCase(),
     }),
+    minify(),
     compression(),
   ],
   ssr: {

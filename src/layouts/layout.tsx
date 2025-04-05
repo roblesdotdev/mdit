@@ -23,42 +23,7 @@ export default function Layout({
               description ||
               'A simple and efficient Markdown editor with real-time preview. Perfect for writers, developers, and content creators.',
           },
-          {
-            name: 'keywords',
-            content:
-              'Markdown, Markdown editor, mdit, text editor, Markdown preview, Markdown live',
-          },
-          { name: 'author', content: 'Aldo R. Robles' },
-
-          // Open Graph
-          {
-            property: 'og:title',
-            content: 'Mdit - Simple and Efficient Markdown Editor',
-          },
-          { property: 'og:type', content: 'website' },
-          { property: 'og:url', content: 'https://mdit.pages.dev' },
-          {
-            property: 'og:description',
-            content:
-              'Discover Mdit, a user-friendly Markdown editor with real-time preview. Perfect for anyone looking to write and format text quickly and efficiently.',
-          },
-          { property: 'og:image', content: '/og-image.png' },
-
-          // Twitter
-          { name: 'twitter:card', content: 'summary_large_image' },
-          {
-            name: 'twitter:title',
-            content: 'Mdit - Simple and Efficient Markdown Editor',
-          },
-          {
-            name: 'twitter:description',
-            content:
-              'Discover Mdit, a user-friendly Markdown editor with real-time preview. Perfect for anyone looking to write and format text quickly and efficiently.',
-          },
-          { name: 'twitter:creator', content: '@roblesdotdev' },
-          { name: 'twitter:image', content: '/og-image.png' },
         ]}
-        link={[{ rel: 'canonical', href: 'https://mdit.pages.dev' }]}
       />
 
       <div className="flex max-h-screen min-h-screen flex-col">
