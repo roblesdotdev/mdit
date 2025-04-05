@@ -3,7 +3,20 @@ import Layout from '../layouts/layout'
 export default function NotFoundPage() {
   return (
     <Layout title="Not found">
-      <h1>Not found</h1>
+      <div className="flex min-h-screen flex-col items-center justify-center">
+        <h1 className="mb-2 text-xl">Ooops!</h1>
+        <p className="text-neutral-400">
+          Sorry, there is no content for this page!
+        </p>
+        <div className="py-8">
+          <a
+            href="/"
+            className="text-neutral-400 underline hover:text-neutral-100"
+          >
+            Back to home
+          </a>
+        </div>
+      </div>
     </Layout>
   )
 }
